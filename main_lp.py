@@ -5,7 +5,6 @@ from lp_solver import lp_solver
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-<<<<<<< Updated upstream
 if __name__ == '__main__':
 
     life_time = 2
@@ -36,9 +35,6 @@ if __name__ == '__main__':
     # set parameters for LP
     gamma = 0.99
 
-=======
-def dynamics_trans(dynamics):
->>>>>>> Stashed changes
     # calculate r(s,a) and p(s'|s,a)
     r = np.zeros((len(state_space), len(action_space)))
     p = np.zeros((len(state_space), len(action_space), len(state_space)))
@@ -61,42 +57,6 @@ def dynamics_trans(dynamics):
         for action in action_space:
             assert abs(sum(p[state_to_index[state], action, :]) - 1) < 1e-6
 
-    return r, p, state_to_index
-
-if __name__ == '__main__':
-
-    # set parameters for problem
-    life_time = 2
-    lead_time = 1
-    unit_lost_cost = 5
-    unit_hold_cost = 1
-    unit_perish_cost = 7
-    unit_order_cost = 3
-    max_order = 5
-    mean_demand = 2
-    cv = 0.5
-
-    parameters = {
-        'life_time': life_time,
-        'lead_time': lead_time,
-        'unit_lost_cost': unit_lost_cost,
-        'unit_hold_cost': unit_hold_cost,
-        'unit_perish_cost': unit_perish_cost,
-        'unit_order_cost': unit_order_cost,
-        'max_order': max_order,
-        'mean_demand': mean_demand,
-        'cv': cv
-    }
-
-    # set parameters for LP
-    gamma = 0.99
-
-    # build dynamics
-    dynamics, state_space, action_space, value, policy = build_dynamics_fifo(
-        parameters)
-
-    # calculate r(s,a) and p(s'|s,a)
-    r, p, state_to_index = dynamics_trans(dynamics)
 
     # solve LP
     model = lp_solver(r, p, gamma)
