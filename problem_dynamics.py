@@ -141,7 +141,7 @@ def value_iteration(dynamics, state_space, action_space, value, policy, theta=1e
 if __name__ == '__main__':
 
     life_time = 2
-    lead_time = 1
+    lead_time = 0
     unit_lost_cost = 5
     unit_hold_cost = 1
     unit_perish_cost = 7
@@ -167,20 +167,16 @@ if __name__ == '__main__':
     value, policy = value_iteration(dynamics, state_space, action_space,
                     value, policy, theta=1e-5, gamma=0.99)
 
-    # plot policy heatmap for each state [i,:,:]
-    for i in range(max_order+1):
-        sns.heatmap(policy[i, :, :], cmap='YlGnBu',
-                    vmin=0, vmax=np.max(policy), annot=True, fmt='d')
-        # invert y axis
-        plt.gca().invert_yaxis()
-        # show action value
-        plt.title('Policy for state {}'.format(i))
-        plt.xlabel("age 2")
-        plt.ylabel("age 1")
+    # 2-dimensional plot
+    if life_time + lead_time == 2:
+        # plot policy
+        ax = sns.heatmap(policy, annot=True, fmt="d")
+        ax.invert_yaxis()
+        plt.title('Policy')
         plt.show()
 
-    # plot value heatmap for each state [i,:,:]
-    for i in range(max_order+1):
-        sns.heatmap(value[i, :, :], cmap='YlGnBu')
-        plt.title('Value for state {}'.format(i))
+        # plot state value
+        ax = sns.heatmap(value, annot=True, fmt=".2f")
+        ax.invert_yaxis()
+        plt.title('State Value')
         plt.show()
