@@ -8,5 +8,3 @@ Linear programming is implemented by using the Gurobi solver.
 
 ## Dynamic Programming
 Value iteration is implemented for solving the problem.
-
-The state value obtained by these two methods are the same.
